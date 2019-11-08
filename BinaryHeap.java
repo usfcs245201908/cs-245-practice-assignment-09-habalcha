@@ -4,21 +4,20 @@ public class BinaryHeap{
     int size = 0;
 
     void add(int priority){
-        System.out.println(data.length);
         if(size >= data.length){
             growArray();
         }
-        data[size] = priority; // add priority into data
-        int child = size;
+        data[size++] = priority; // add priority into data
+        int child = size - 1;
         int parent = (child)/2; // data set up with parent inserted before child
-        while(parent > 0 && data[parent] > data[child]){
+        while(parent >= 0 && data[parent] > data[child]){
             swap(data, parent, child);
             child = parent;
             parent = (child - 1) / 2;
         }
-        size++;
+
     }
-   // System.out.println("Child is " + child + " Parent is " + parent);
+
 
     int remove(){
         int temp = data[0];
@@ -38,8 +37,8 @@ public class BinaryHeap{
         if(child < size && (child+1) < size && data[child+1] < data[child]){ // make sure we still have space in the data
             child += 1;
         }
-        if(data[parent] > data [child]){
-            swap(data, parent, child);
+        if(child < size && parent < size && data[parent] > data [child]){
+            swap(data, parent, child); //fine
             siftdown(child);
         }
     }
@@ -48,5 +47,13 @@ public class BinaryHeap{
     void growArray(){
         int[] newData = Arrays.copyOf(data, data.length*2);
         data = newData;
+    }
+
+    void printData(){
+        System.out.print("\n");
+        for (int i = 0; i < data.length; i++){
+            System.out.print(data[i] + " ");
+        }
+        System.out.print("\n\n");
     }
 }
